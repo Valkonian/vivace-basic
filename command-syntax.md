@@ -44,7 +44,7 @@ If required, **more context** will be added to the **command word**. For instanc
 
 ##### e.g.
 
-Say I want to **store a file** _(already formatted)_ **called "Billie-Eilish.txt"** in a **database** called **main**, in a **table** called **artists** located in a subfolder called transfer.<br>
+Say I want to **store a file** _(already formatted)_ **called "Billie-Eilish.txt"** in a **database called main**, in a **table called artists** located in a **subfolder called transfer**.<br>
 
 > ##### send file transfer/ Billie-Eilish.txt store in database main table artists
 
