@@ -15,7 +15,7 @@ class Scraper():
         self.allData = self.soup.find_all('table')[1] #take all data from target table
         self.titles = self.allData.find_all('th') #find headers
         self.data = self.allData.find_all('td') #find table data
-        self.tableTitles = [ title.text for title in self.titles ] #find all the table headers
+        self.tableTitles = [ title.text for title in self.titles ] #list of all the table headers
         self.tableDataPrimitive = [ entry.text for entry in self.data ] #create primitive (unclean) table data
         self.tableDataClean = [] #for cleaned table data
         self.titlesLength = len(self.tableTitles) #length of the header list
@@ -42,20 +42,35 @@ class Scraper():
         return self.titlesPrimary, self.titlesSecondary, self.tableDataClean #return the primary headers, secondary headers, and cleaned table data
     
     def SpotifyListeners(self):
-        self.allData = self.soup.find_all('table')[0]
-        self.titles = self.allData.find_all('th')
-        self.data = self.allData.find_all('td')
-        self.tableTitles = [ title.text for title in self.titles]
-        self.tableDataPrimitive = [ entry.text for entry in self.data ]
-        self.tableDataClean = []
-        self.dataLength = int(len(self.tableDataPrimitive))
+        self.allData = self.soup.find_all('table')[0] #get table
+        self.titles = self.allData.find_all('th') #get table headers
+        self.data = self.allData.find_all('td') #get tabe data
+        self.tableTitles = [ title.text for title in self.titles] #list of table holders
+        self.tableDataPrimitive = [ entry.text for entry in self.data ] #uncleaned table data
+        self.tableDataClean = [] #for cleaned data
+        self.dataLength = int(len(self.tableDataPrimitive)) #length of the list
         for i in range(0, self.dataLength, 5):
-            self.temp = [self.tableDataPrimitive[i], self.tableDataPrimitive[i+1], self.tableDataPrimitive[i+2], self.tableDataPrimitive[i+3], self.tableDataPrimitive[i+4]]
-            self.tableDataClean.append(self.temp)
+            self.temp = [self.tableDataPrimitive[i], self.tableDataPrimitive[i+1], self.tableDataPrimitive[i+2], self.tableDataPrimitive[i+3], self.tableDataPrimitive[i+4]] #temp list to append to cleaned data
+            self.tableDataClean.append(self.temp) 
         return self.tableTitles, self.tableDataClean
+    
+    def getTopListenedKworbLinks(self):
+        self.allData = self.soup.find_all('table')[0]
+        self.data = self.allData.find_all('td')
+        self.dataLength = len(self.data)
+        self.hrefNameDict = {}
+        for i in range(0, self.dataLength):
+            self.currentData = self.data[i]
+            for anchor in self.currentData.find_all('a'):
+                self.name = anchor.contents[0]
+                self.anchors = anchor.get('href')
+                self.anchors = 'https://kworb.net/spotify/' + self.anchors
+                self.hrefNameDict.update({str(self.name): self.anchors})
+        return self.hrefNameDict
+        
 
     def clearFile(self):
         open("getURL.txt", "w").close() #clear the file
 
 scrape = Scraper()
-print(scrape.SpotifyListeners())
+print(scrape.getTopListenedKworbLinks())
