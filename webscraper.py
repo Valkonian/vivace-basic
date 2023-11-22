@@ -52,25 +52,25 @@ class Scraper():
         for i in range(0, self.dataLength, 5):
             self.temp = [self.tableDataPrimitive[i], self.tableDataPrimitive[i+1], self.tableDataPrimitive[i+2], self.tableDataPrimitive[i+3], self.tableDataPrimitive[i+4]] #temp list to append to cleaned data
             self.tableDataClean.append(self.temp) 
-        return self.tableTitles, self.tableDataClean
+        return self.tableTitles, self.tableDataClean #return the titles & cleaned data
     
-    def getTopListenedKworbLinks(self):
-        self.allData = self.soup.find_all('table')[0]
-        self.data = self.allData.find_all('td')
-        self.dataLength = len(self.data)
-        self.hrefNameDict = {}
+    def getKworbLink(self, target):
+        self.allData = self.soup.find_all('table')[0] #get table data
+        self.data = self.allData.find_all('td') #list of all table data
+        self.dataLength = len(self.data) #length of the table data list
+        self.hrefNameDict = {} #dictionary to add to
         for i in range(0, self.dataLength):
-            self.currentData = self.data[i]
-            for anchor in self.currentData.find_all('a'):
-                self.name = anchor.contents[0]
-                self.anchors = anchor.get('href')
-                self.anchors = 'https://kworb.net/spotify/' + self.anchors
-                self.hrefNameDict.update({str(self.name): self.anchors})
-        return self.hrefNameDict
+            self.currentData = self.data[i] #current data piece (to avoid AttributeErrors)
+            for anchor in self.currentData.find_all('a'): #for every anchor tag (<a>) in the current data piece
+                self.name = anchor.contents[0] #contents of the anchor tag (e.g. for <a>This is an anchor.</a>, it would return 'This is an anchor.')
+                self.anchors = anchor.get('href') #get the href of the anchor
+                self.anchors = 'https://kworb.net/spotify/' + self.anchors #create a whole link by adding prefix to href
+                self.hrefNameDict.update({str(self.name): self.anchors}) #add to dictionary.
+        return self.hrefNameDict[target]
         
 
     def clearFile(self):
         open("getURL.txt", "w").close() #clear the file
 
 scrape = Scraper()
-print(scrape.getTopListenedKworbLinks())
+print(scrape.getKworbLink('Billie Eilish'))
