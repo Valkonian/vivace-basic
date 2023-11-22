@@ -53,7 +53,7 @@ class Scraper():
             self.temp = [self.tableDataPrimitive[i], self.tableDataPrimitive[i+1], self.tableDataPrimitive[i+2], self.tableDataPrimitive[i+3], self.tableDataPrimitive[i+4]] #temp list to append to cleaned data
             self.tableDataClean.append(self.temp) 
         return self.tableTitles, self.tableDataClean #return the titles & cleaned data
-    
+
     def getKworbLink(self, target):
         self.allData = self.soup.find_all('table')[0] #get table data
         self.data = self.allData.find_all('td') #list of all table data
