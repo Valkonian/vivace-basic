@@ -1,5 +1,15 @@
-This is for my NEA, essentially a draft version of my website Vivace.
-I'm using a mix of RAD and Agile coding.
-This is just here so I don't make a total hot steaming mess of my actual code I'm gonna submit.
+# Vivace
 
-Guess what, I used no ChatGPT for the webscraper!! Take that AI! You're not coming for my job!!1!11!!
+Vivace is a music website aimed to provide statistics, links, and news about music all in one place. 
+
+### Why?
+
+As part of A-Level Computer Science, I have to do an NEA, and I decided to make this.
+
+### What does the -basic mean?
+
+This is a draft so I don't make a hot steaming pile of shit that might pass as code and then have to submit it when it's essentially unreadable.
+
+### Why Python?
+
+Shits and gigs innit.
