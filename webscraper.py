@@ -4,7 +4,9 @@ import requests
 class Scraper():
     def __init__(self):
         self.file = open("getURL.txt", "r") #open the file, i tried to do this with 'with' but it had a stroke and cried
-        self.url = self.file.readlines()[0] #read the URLs
+        self.linesRead = self.file.readlines() #read file
+        self.url = self.linesRead[0].strip() #read URLs
+        self.request = self.linesRead[1] #get command
         self.page = requests.get(self.url) #get the page from the url
         self.soup = BeautifulSoup(self.page.text, features="html.parser") #soup it
         self.file.close()
@@ -38,9 +40,22 @@ class Scraper():
             self.temp = [self.tableDataPrimitive[i+1], self.tableDataPrimitive[i+2], self.tableDataPrimitive[i+3], self.tableDataPrimitive[i+4]] #create temp list for appending to clean data
             self.tableDataClean.append(self.temp) #add to cleaned data
         return self.titlesPrimary, self.titlesSecondary, self.tableDataClean #return the primary headers, secondary headers, and cleaned table data
+    
+    def SpotifyListeners(self):
+        self.allData = self.soup.find_all('table')[0]
+        self.titles = self.allData.find_all('th')
+        self.data = self.allData.find_all('td')
+        self.tableTitles = [ title.text for title in self.titles]
+        self.tableDataPrimitive = [ entry.text for entry in self.data ]
+        self.tableDataClean = []
+        self.dataLength = int(len(self.tableDataPrimitive))
+        for i in range(0, self.dataLength, 5):
+            self.temp = [self.tableDataPrimitive[i], self.tableDataPrimitive[i+1], self.tableDataPrimitive[i+2], self.tableDataPrimitive[i+3], self.tableDataPrimitive[i+4]]
+            self.tableDataClean.append(self.temp)
+        return self.tableTitles, self.tableDataClean
 
     def clearFile(self):
         open("getURL.txt", "w").close() #clear the file
 
 scrape = Scraper()
-print(scrape.SpotifyTotalStreams())
+print(scrape.SpotifyListeners())
