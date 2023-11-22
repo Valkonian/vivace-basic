@@ -1,20 +1,25 @@
 from bs4 import BeautifulSoup
 import requests
 
-url = 'https://kworb.net/spotify/artist/3TVXtAsR1Inumwj472S9r4_songs.html'
-page = requests.get(url) #get the page from the url
-soup = BeautifulSoup(page.text, features="html.parser")
+class Scraper():
+    def __init__(self):
+        self.url = 'https://kworb.net/spotify/artist/6qqNVTkY8uBg9cP3Jd7DAH_songs.html'
+        self.page = requests.get(self.url) #get the page from the url
+        self.soup = BeautifulSoup(self.page.text, features="html.parser")
 
+    def SpotifySongStreams(self):
+        self.allData = self.soup.find_all('table')[1]
+        self.titles = self.allData.find_all('th')
+        self.data = self.allData.find_all('td')
+        self.tableTitles = [ title.text for title in self.titles ]
+        self.tableDataPrimitive = [ entry.text for entry in self.data ]
+        self.tableDataClean = []
+        self.titlesLength = len(self.tableTitles)
+        self.dataLength = int(len(self.tableDataPrimitive))
+        for i in range(0, self.dataLength, 3):
+            self.temp = [self.tableDataPrimitive[i], self.tableDataPrimitive[i+1], self.tableDataPrimitive[i+2]]
+            self.tableDataClean.append(self.temp)
+        print(self.tableDataClean)
 
-allData = soup.find_all('table')[1]
-titles = allData.find_all('th')
-data = allData.find_all('td')
-tableTitles = [ title.text for title in titles ]
-tableDataPrimitive = [ entry.text for entry in data ]
-tableDataClean = []
-titlesLength = len(tableTitles)
-dataLength = int(len(tableDataPrimitive))
-for i in range(0, dataLength, 3):
-    temp = [tableDataPrimitive[i], tableDataPrimitive[i+1], tableDataPrimitive[i+2]]
-    tableDataClean.append(temp)
-print(tableDataClean)
+scrape = Scraper()
+scrape.SpotifySongStreams()
