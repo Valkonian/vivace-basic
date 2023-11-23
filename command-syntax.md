@@ -1,8 +1,11 @@
 # Basic Command Syntax for Vivace
 
+There will be a **py command handler**, and a **js command handler**, for **back-end** and **front-end** respectively.<br>
+This is so that the 2 languages can _interact with eachother_ with a **standardised set of commands in a standardised format**.<br>
+
 ## Data requests
 
-#### Get Data
+### Get Data
 
 All _get_ commands will start with **"get"**.<br>
 Then, the **target data** will be entered.<br>
@@ -18,11 +21,11 @@ The _order_ goes like this:<br>
 
 _If not_, simply the **command instructions** will follow.<br>
 
-##### e.g.
+#### e.g.
 
-Say I want to get the **kworb.net link** for _Billie Eilish_'s songs.<br>
+Say I want to **get the kworb.net link** for _Billie Eilish_'s songs.<br>
 
-> ##### get Billie-Eilish link kworb streams songs
+> #### get Billie-Eilish link kworb streams songs
 
 > - get = **get command word**
 > - Billie-Eilish = **target object**, _artist comes first_
@@ -32,9 +35,20 @@ Say I want to get the **kworb.net link** for _Billie Eilish_'s songs.<br>
 
 This, once fully implemented, will return:<br>
 
-> https://kworb.net/spotify/artist/6qqNVTkY8uBg9cP3Jd7DAH_songs.html
+> <https://kworb.net/spotify/artist/6qqNVTkY8uBg9cP3Jd7DAH_songs.html>
 
-#### Send Data
+Say I want to **get the link** to _Billie Eilish's stats_ **from the webpage https://kworb.net/spotify/listeners.html**. <br>
+
+> #### get Billie-Eilish stats with link https://kworb.net/spotify/listeners.html
+
+> - get = **get command word**
+> - Billie-Eilish = **target object**, _artist comes first_
+> - stats = **target data**, _comes before target data type (if applicable)_
+> - with = **keyword**, _tells the program to do the command using the following thing_
+> - link = **data type** , _tells program what type the following data is_
+> - \[kworb link] = **data**, _gives program the data to use_
+
+### Send Data
 
 All _send_ commands will start with **"send"**.<br>
 If applicable, a **file location** will be sent, and then a **file name**. This will _always_ be _preceded_ by the keyword **file**.<br>
@@ -42,11 +56,11 @@ If not, a piece of data, be it a _string_, an _integer_, etc, will be entered, _
 A **command word** will then follow. For instance, if I wanted to _store something in a database_, the command word would be **store**.<br>
 If required, **more context** will be added to the **command word**. For instance, if I wanted to _store something in a database named artists_, the command word & context would be **store in database artists**.<br>
 
-##### e.g.
+#### e.g.
 
 Say I want to **store a file** _(already formatted)_ **called "Billie-Eilish.txt"** in a **database called main**, in a **table called artists** located in a **subfolder called transfer**.<br>
 
-> ##### send file transfer/ Billie-Eilish.txt store in database main table artists
+> #### send file transfer/ Billie-Eilish.txt store in database main table artists
 
 > - send = **send command word**
 > - file = **keyword**, _tells program it's a file and not a piece of data_

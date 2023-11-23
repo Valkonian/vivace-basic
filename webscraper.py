@@ -2,8 +2,10 @@ from bs4 import BeautifulSoup
 import requests
 
 class Scraper():
+    #the __init__ will change after command-handler.py has been built.
+    #for now it will automatically assume all commands in commands.txt are get commands
     def __init__(self):
-        self.file = open("getURL.txt", "r") #open the file, i tried to do this with 'with' but it had a stroke and cried
+        self.file = open("commands.txt", "r") #open the file, i tried to do this with 'with' but it had a stroke and cried
         self.linesRead = self.file.readlines() #read file
         self.url = self.linesRead[0].strip() #read URLs
         self.request = self.linesRead[1] #get command
@@ -70,7 +72,7 @@ class Scraper():
         
 
     def clearFile(self):
-        open("getURL.txt", "w").close() #clear the file
+        open("commands.txt", "w").close() #clear the file
 
 scrape = Scraper()
 print(scrape.getKworbLink('Billie Eilish'))
