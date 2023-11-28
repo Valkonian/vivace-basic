@@ -1,3 +1,1 @@
-send file transfer/ Billie-Eilish.txt store in database main table artists
-get Billie-Eilish stats with link https://kworb.net/spotify/listeners.html
-get Billie-Eilish link kworb streams songs
+get data Billie-Eilish link kworb streams songs

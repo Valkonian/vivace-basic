@@ -25,9 +25,10 @@ _If not_, simply the **command instructions** will follow.<br>
 
 Say I want to **get the kworb.net link** for _Billie Eilish_'s songs.<br>
 
-> #### get Billie-Eilish link kworb streams songs
+> #### get data Billie-Eilish link kworb streams songs
 
 > - get = **get command word**
+> - data = **keyword**, _tells program it's a piece of data_
 > - Billie-Eilish = **target object**, _artist comes first_
 > - link = **target data**, _comes before target data type_
 > - kworb = **target data type**
@@ -39,13 +40,14 @@ This, once fully implemented, will return:<br>
 
 Say I want to **get the link** to _Billie Eilish's stats_ **from the webpage https://kworb.net/spotify/listeners.html**. <br>
 
-> #### get Billie-Eilish stats with link https://kworb.net/spotify/listeners.html
+> #### get data Billie-Eilish stats with link https://kworb.net/spotify/listeners.html
 
 > - get = **get command word**
+> - data = **keyword**, _tells program it's a piece of data_
 > - Billie-Eilish = **target object**, _artist comes first_
 > - stats = **target data**, _comes before target data type (if applicable)_
-> - with = **keyword**, _tells the program to do the command using the following thing_
-> - link = **data type** , _tells program what type the following data is_
+> - with = **keyword**, _mostly there for readability_
+> - link = **target data type** , _tells program what type the following data is_
 > - \[kworb link] = **data**, _gives program the data to use_
 
 ### Send Data

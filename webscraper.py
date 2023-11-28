@@ -1,8 +1,10 @@
 from bs4 import BeautifulSoup
 import requests
 
+# this is (TEMPORARILY) broken, i will fix it when the command handler is built
+
 class Scraper():
-    #the __init__ will change after command-handler.py has been built.
+    #the __init__ will change after commandHandler.py has been built.
     #for now it will automatically assume all commands in commands.txt are get commands
     def __init__(self):
         self.file = open("commands.txt", "r") #open the file, i tried to do this with 'with' but it had a stroke and cried
