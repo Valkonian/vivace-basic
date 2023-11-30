@@ -1,19 +1,17 @@
 from bs4 import BeautifulSoup
 import requests
+from constantData import commonUrls
 
 # this is (TEMPORARILY) broken, i will fix it when the command handler is built
 
 class Scraper():
     #the __init__ will change after commandHandler.py has been built.
     #for now it will automatically assume all commands in commands.txt are get commands
-    def __init__(self):
-        self.file = open("commands.txt", "r") #open the file, i tried to do this with 'with' but it had a stroke and cried
-        self.linesRead = self.file.readlines() #read file
-        self.url = self.linesRead[0].strip() #read URLs
-        self.request = self.linesRead[1] #get command
+    def soupLink(self, targetLink):
+        self.url = commonUrls[targetLink]
         self.page = requests.get(self.url) #get the page from the url
         self.soup = BeautifulSoup(self.page.text, features="html.parser") #soup it
-        self.file.close()
+        return self.url
 
     def SpotifySongStreams(self):
         self.allData = self.soup.find_all('table')[1] #take all data from target table
@@ -77,4 +75,4 @@ class Scraper():
         open("commands.txt", "w").close() #clear the file
 
 scrape = Scraper()
-print(scrape.getKworbLink('Billie Eilish'))
+print(scrape.soupLink('kworbListeners'))

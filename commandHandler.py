@@ -1,5 +1,6 @@
 from typing import Any
-from dictionaries import commandWords, keywords, targetData, targetDataTypes
+from constantData import commandWords, keywords, targetData, targetDataTypes, commonUrls
+import sys
 commandDictionary = {}
 
 class ImportCmds():
@@ -10,7 +11,11 @@ class ImportCmds():
             self.commands.append(line.strip()) #append the stripped line to the commands list
         self.file.close() #close the file when done
         open("commands.txt", "w").close()
-        print('Cleared') #clear the file when done as to not leave leftover commands that have already been retrieved
+        print('[INFO] Target file (currently commands.txt) cleared') #clear the file when done as to not leave leftover commands that have already been retrieved
+        if len(self.commands) == 0:
+            self.passed = False
+        else:
+            self.passed = True
 
 class ExportCmds():
     def __init__(self):
@@ -31,35 +36,65 @@ class ExportCmds():
         self.file.close() #close
 
 class InterpretCmds():
-    def __init__(self):
-        for i in range(len(commandDictionary)):
-            self.string = 'command' + str(i) #make key for dictionary
-            self.command = commandDictionary[self.string] #input key into command dictionary
-            self.cmdContents = self.command.split() #split command by word, storing each as a list
+    def __init__(self, currentI): #make key for dictionary
+        self.string = 'command' + str(currentI)
+        self.command = commandDictionary[self.string] #input key into command dictionary
+        self.cmdContents = self.command.split() #split command by word, storing each as a list
 
     def checkAgainstDicts(self):
-        try:
-            self.baseKW = commandWords[self.cmdContents[0]] #get basic command word, i.e. get or send
-            self.baseKWpassed = True 
-        except KeyError:
-            self.baseKWpassed = False
-        if self.baseKWpassed:
-            print('Passed,', self.baseKW)
+        self.baseKW = self.cmdContents[0] #get basic key word, i.e. get or send
+        print('[INFO] Base keyword:', self.baseKW)
+        if self.baseKW in commandWords: 
+            print('[INFO] Base keyword accepted.')
+            if self.baseKW == 'get':
+                self.cmdContents.pop(0)
+                allCmds = Cmds(self.cmdContents)
         else:
-            print('Failed.')
-        
+            print('[ERROR] Base keyword not found. Exiting...')
+            sys.exit()
+
+class Cmds():
+
+    def __init__(self, listIn):
+        self.kwDict = {}
+        self.extraInfo = {}
+        for i in range(len(listIn)):
+            if listIn[i] in keywords or listIn[i] in targetData or listIn[i] in targetDataTypes:
+                self.kwDict.update({str(i): str(listIn[i])})
+            else:
+                self.extraInfo.update({str(i): str(listIn[i])})
+        print('[INFO] Keyword Dictionary:', self.kwDict)
+        print('[INFO] Extra Information Dictionary:', self.extraInfo)
+
+# just to test command reassembly
+        # temp = []
+        # for i in range(len(listIn)):
+        #     try:
+        #         temp.append(orderDict[str(i)])
+        #     except:
+        #         temp.append(extraInfo[str(i)])
+        # print(temp)
+
+    def Get(self, kwDict, extraInfo):
+        pass #will edit when i have time, this is just a placeholder for now
+    
 
 take = ImportCmds()
 give = ExportCmds()
 
-if give.passed:
-    print('Yes')
-    i = 0
-    for index in take.commands:
-        commandDictionary.update({'command' + str(i): index})
-        i += 1
-    # print(commandDictionary)
-    interpret = InterpretCmds()
-    interpret.checkAgainstDicts()
+if take.passed:
+    print('[INFO] ImportCmds() passed.')
+    if give.passed:
+        print('[INFO] Target file (currently commands.txt) has been emptied correctly.')
+        i = 0
+        for index in take.commands:
+            commandDictionary.update({'command' + str(i): index})
+            i += 1
+        # print(commandDictionary)
+        interpret = InterpretCmds(0)
+        interpret.checkAgainstDicts()
+    else:
+        print('[ERROR] Target file (currently commands.txt) is not empty.') #this will be handled in future.
 else:
-    print('No')
+    print('[ERROR] Target file (currently commands.txt) is empty. Exiting...')
+    sys.exit()
