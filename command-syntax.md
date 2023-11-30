@@ -53,12 +53,12 @@ Say I want to **get the link** to _Billie Eilish's stats_ **from the webpage htt
 
 Say I wanted to **get all information** **from the database main**, **the table monthlyListeners**, using the **primary key Billie-Eilish** <br>
 
-> #### get all from database main table monthlyListeners with key Billie-Eilish
+> #### get all from database main table artists with key name Billie-Eilish
 
 > - get = **get command word**
 > - all = **target data**, _in this case all fields from table_
 > - from database main = **keyword/target data location**, _get data from the database 'main', 'database' considered keyword_
-> - table monthlyListeners = **target data location (cont)**, _get data from the table monthlyListeners_
+> - table artists = **target data location (cont)**, _get data from the table artists_
 > - with key Billie-Eilish = **target data key**, _using the key_
 
 ### Send Data
