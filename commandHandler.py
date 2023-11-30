@@ -1,5 +1,5 @@
 from typing import Any
-from constantData import commandWords, keywords, targetData, targetDataTypes, commonUrls
+from constantData import commandWords, keywords, targetData, targetDataTypes, commonUrls, dataResources
 import sys
 commandDictionary = {}
 
@@ -59,7 +59,7 @@ class Cmds():
     self.kwDict = {}
     self.extraInfo = {}
     for i in range(len(listIn)):
-      if listIn[i] in keywords or listIn[i] in targetData or listIn[i] in targetDataTypes:
+      if listIn[i] in keywords or listIn[i] in targetData or listIn[i] in targetDataTypes or listIn[i] in dataResources:
         self.kwDict.update({str(listIn[i]): i})
       else:
         self.extraInfo.update({str(listIn[i]): i})
@@ -69,12 +69,15 @@ class Cmds():
 
   def Get(self, kwDict, extraInfo):
     self.trueCount = 0
+    self.flagSQL = False
+    self.flagLink = False
+    self.flagFile = False
     if 'database' in kwDict or 'database' in extraInfo:
       self.flagSQL = True #handling database, therefore sql command
       self.trueCount += 1
       print('[INFO] ✓ Database')
-    if 'data' in kwDict or 'data' in extraInfo:
-      self.flagData = True #handling data
+    if 'link' in kwDict or 'link' in extraInfo:
+      self.flagLink = True #handling data
       self.trueCount += 1
       print('[INFO] ✓ Data')
     if 'file' in kwDict or 'file' in extraInfo:
@@ -88,30 +91,51 @@ class Cmds():
     if self.trueCount <= 1: #as long as only one data type has been given
       if self.flagSQL: #if database command,
         self.exInfValues = [ *extraInfo.values() ] #list of values
-        self.exInfKeys = [ *extraInfo.keys() ] #
-        if 'all' in kwDict:
-          self.select = '*'
+        self.exInfKeys = [ *extraInfo.keys() ] #list of keys
+        if 'all' in kwDict: #if get all
+          self.select = '*' #wildcard
         else:
-          self.position = self.exInfValues.index(0)
-          self.select = str(self.exInfKeys[self.position])
+          self.position = self.exInfValues.index(0) #else get field name
+          self.select = str(self.exInfKeys[self.position]) 
         print(f'[INFO] select = {self.select}')
-        if 'key' in kwDict:
-          self.keyPos1 = kwDict['key'] + 1
-          self.keyPos2 = kwDict['key'] + 2
+        if 'key' in kwDict: #if using key
+          self.keyPos1 = kwDict['key'] + 1 #position of key, add 1 to get next word in command
+          self.keyPos2 = kwDict['key'] + 2 #get next word in command again
           self.position1 = self.exInfValues.index(self.keyPos1)
           self.key1 = str(self.exInfKeys[self.position1])
           self.position2 = self.exInfValues.index(self.keyPos2)
-          self.key2 = str(self.exInfKeys[self.position2])
+          self.key2 = str(self.exInfKeys[self.position2]) #getting based on value & not key
           print(f'[INFO] keyPos1 = {self.keyPos1}, position1 = {self.position1}, key1 = {self.key1}, keyPos2 = {self.keyPos2}, position2 = {self.position2}, key2 = {self.key2}')
-          self.where = self.key1 + ' = "' + self.key2 + '"'
+          self.where = self.key1 + ' = "' + self.key2 + '"' #create part of sql command following WHERE
           print(f'[INFO] where = {self.where}')
         if 'table' in extraInfo:
-          self.tablePos = extraInfo['table'] + 1
+          self.tablePos = extraInfo['table'] + 1 #get table name (1 after keyword table)
           self.position = self.exInfValues.index(self.tablePos)
-          self.table = str(self.exInfKeys[self.position])
+          self.table = str(self.exInfKeys[self.position])  #get based on value not key
           print(f'[INFO] table = {self.table}')
-        self.sqlCmd = 'SELECT ' + self.select + ' FROM ' + self.table + ' WHERE ' + self.where
+        self.sqlCmd = 'SELECT ' + self.select + ' FROM ' + self.table + ' WHERE ' + self.where #create full command
         print(f'[INFO] sql command = {self.sqlCmd}')
+        return self.sqlCmd
+        #pass to database handling file later
+
+      elif self.flagFile:
+        self.exInfValues = [ *extraInfo.values() ]
+        self.exInfKeys = [ *extraInfo.keys() ]
+        self.filePathValue = kwDict['file'] + 1
+        self.fileNameValue = kwDict['file'] + 2
+        self.position1 = self.exInfValues.index(self.filePathValue)
+        self.position2 = self.exInfValues.index(self.fileNameValue)
+        self.filePathKey = str(self.exInfKeys[self.position1])
+        self.fileNameKey = str(self.exInfKeys[self.position2])
+        print(f'[INFO] filePathValue = {self.filePathValue}, fileNameValue = {self.fileNameValue}, position1 = {self.position1}, position2 = {self.position2}, filePathKey = {self.filePathKey}, fileNameKey = {self.fileNameKey}')
+        self.filePathFull = self.filePathKey + self.fileNameKey
+        print(f'[INFO] filePathFull = {self.filePathFull}')
+        return self.filePathFull
+        #pass to file handler later
+
+      if self.flagLink:
+        pass
+        
     else:
       print('[ERROR] Too many target data types given. Exiting...')
       sys.exit()

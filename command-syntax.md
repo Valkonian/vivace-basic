@@ -9,11 +9,11 @@ This is so that the 2 languages can _interact with eachother_ with a **standardi
 
 All _get_ commands will start with **"get"**.<br>
 Then, the **target data** will be entered.<br>
-_If it applies to a certain object_, like an **artist**, **song**, or **album**, the object name will follow first.<br>
 Then, the **target data type** will be added, if required.<br>
+Then the **object name**, like an **artist**, **song**, or **album**, if required.<br>
 If we are searching a database, a **target data key** will be required.<br>
 Finally, the **extra information** (if applicable).<br>
-_Spaces_ in names will be replaced with a dash (-).<br>
+_Spaces_ in names will be replaced with a dash/hyphen .<br>
 The _order_ goes like this:<br>
 
 - artist
@@ -26,10 +26,9 @@ _If not_, simply the **command instructions** will follow.<br>
 
 Say I want to **get the kworb.net link** for _Billie Eilish_'s songs.<br>
 
-> #### get data Billie-Eilish link kworb streams songs
+> #### get link kworb Billie-Eilish streams songs
 
 > - get = **get command word**
-> - data = **keyword**, _tells program it's a piece of data_
 > - Billie-Eilish = **target object**, _artist comes first_
 > - link = **target data**, _comes before target data type_
 > - kworb = **target data type**
@@ -41,15 +40,15 @@ This, once fully implemented, will return:<br>
 
 Say I want to **get the link** to _Billie Eilish's stats_ **from the webpage https://kworb.net/spotify/listeners.html**. <br>
 
-> #### get data Billie-Eilish stats with link https://kworb.net/spotify/listeners.html
+> #### get data Billie-Eilish stats with kworblink https://kworb.net/spotify/listeners.html
 
 > - get = **get command word**
 > - data = **keyword**, _tells program it's a piece of data_
 > - Billie-Eilish = **target object**, _artist comes first_
 > - stats = **target data**, _comes before target data type (if applicable)_
 > - with = **keyword**, _mostly there for readability_
-> - link = **target data type** , _tells program what type the following data is_
-> - \[kworb link] = **data**, _gives program the data to use_
+> - kworblink = **data resource type** , _tells program what type the following data resource is_
+> - \[kworb link] = **data resource**, _gives program the data to use_
 
 Say I wanted to **get all information** **from the database main**, **the table monthlyListeners**, using the **primary key Billie-Eilish** <br>
 
