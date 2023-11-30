@@ -60,25 +60,25 @@ class Cmds():
         self.extraInfo = {}
         for i in range(len(listIn)):
             if listIn[i] in keywords or listIn[i] in targetData or listIn[i] in targetDataTypes:
-                self.kwDict.update({str(i): str(listIn[i])})
+                self.kwDict.update({str(listIn[i]): i})
             else:
-                self.extraInfo.update({str(i): str(listIn[i])})
+                self.extraInfo.update({str(listIn[i]): i})
         print('[INFO] Keyword Dictionary:', self.kwDict)
         print('[INFO] Extra Information Dictionary:', self.extraInfo)
-
-# just to test command reassembly
-        # temp = []
-        # for i in range(len(listIn)):
-        #     try:
-        #         temp.append(orderDict[str(i)])
-        #     except:
-        #         temp.append(extraInfo[str(i)])
-        # print(temp)
+        self.Get(self.kwDict, self.extraInfo)
 
     def Get(self, kwDict, extraInfo):
-        pass #will edit when i have time, this is just a placeholder for now
-    
+        self.flagSQL = False
+        self.flagData = False
+        if 'database' in kwDict or 'database' in extraInfo:
+            self.flagSQL = True
+            print('[INFO] ✓ Database')
+        elif 'data' in kwDict or 'data' in extraInfo:
+            self.flagData = True
+            print('[INFO] ✓ Data')
 
+
+    
 take = ImportCmds()
 give = ExportCmds()
 

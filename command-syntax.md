@@ -11,13 +11,14 @@ All _get_ commands will start with **"get"**.<br>
 Then, the **target data** will be entered.<br>
 _If it applies to a certain object_, like an **artist**, **song**, or **album**, the object name will follow first.<br>
 Then, the **target data type** will be added, if required.<br>
+If we are searching a database, a **target data key** will be required.<br>
 Finally, the **extra information** (if applicable).<br>
 _Spaces_ in names will be replaced with a dash (-).<br>
 The _order_ goes like this:<br>
 
-> artist
-> album
-> song
+- artist
+- album
+- song
 
 _If not_, simply the **command instructions** will follow.<br>
 
@@ -49,6 +50,16 @@ Say I want to **get the link** to _Billie Eilish's stats_ **from the webpage htt
 > - with = **keyword**, _mostly there for readability_
 > - link = **target data type** , _tells program what type the following data is_
 > - \[kworb link] = **data**, _gives program the data to use_
+
+Say I wanted to **get all information** **from the database main**, **the table monthlyListeners**, using the **primary key Billie-Eilish** <br>
+
+> #### get all from database main table monthlyListeners with key Billie-Eilish
+
+> - get = **get command word**
+> - all = **target data**, _in this case all fields from table_
+> - from database main = **keyword/target data location**, _get data from the database 'main', 'database' considered keyword_
+> - table monthlyListeners = **target data location (cont)**, _get data from the table monthlyListeners_
+> - with key Billie-Eilish = **target data key**, _using the key_
 
 ### Send Data
 
