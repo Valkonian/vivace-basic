@@ -2,11 +2,9 @@ from bs4 import BeautifulSoup
 import requests
 from constantData import commonUrls
 
-# this is (TEMPORARILY) broken, i will fix it when the command handler is built
+#THIS FILE WILL CHANGE A LOT DUE TO REQUIREMENTS
 
 class Scraper():
-    #the __init__ will change after commandHandler.py has been built.
-    #for now it will automatically assume all commands in commands.txt are get commands
     def soupLink(self, targetLink):
         self.url = commonUrls[targetLink]
         self.page = requests.get(self.url) #get the page from the url

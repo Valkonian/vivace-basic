@@ -40,10 +40,9 @@ This, once fully implemented, will return:<br>
 
 Say I want to **get the link** to _Billie Eilish's stats_ **from the webpage https://kworb.net/spotify/listeners.html**. <br>
 
-> #### get data Billie-Eilish stats with kworblink https://kworb.net/spotify/listeners.html
+> #### get stats for Billie-Eilish with kworblink https://kworb.net/spotify/listeners.html
 
 > - get = **get command word**
-> - data = **keyword**, _tells program it's a piece of data_
 > - Billie-Eilish = **target object**, _artist comes first_
 > - stats = **target data**, _comes before target data type (if applicable)_
 > - with = **keyword**, _mostly there for readability_
