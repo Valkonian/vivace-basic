@@ -1,12 +1,19 @@
 from bs4 import BeautifulSoup
 import requests
+import sys
+from colorama import Fore
 from constantData import commonUrls
 
 #THIS FILE WILL CHANGE A LOT DUE TO REQUIREMENTS
 
 class Scraper():
     def soupLink(self, targetLink):
-        self.url = commonUrls[targetLink]
+        try:
+            self.url = commonUrls[targetLink]
+            print(self.url)
+        except:
+            print(f'{Fore.RED}[ERROR] ! targetLink NOT FOUND in commonUrls.{Fore.WHITE}')
+            sys.exit()
         self.page = requests.get(self.url) #get the page from the url
         self.soup = BeautifulSoup(self.page.text, features="html.parser") #soup it
         return self.url
@@ -73,4 +80,3 @@ class Scraper():
         open("commands.txt", "w").close() #clear the file
 
 scrape = Scraper()
-print(scrape.soupLink('kworbListeners'))

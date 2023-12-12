@@ -1,8 +1,9 @@
 from typing import Any
-from constantData import commandWords, keywords, targetData, targetDataTypes, commonUrls, linkTypes
+from constantData import commandWords, keywords, targetData, targetDataTypes, commonUrls, linkTypes, extensions
 import sys
 from colorama import Fore
-from webscraper import scrape
+# from webscraper import scrape
+# from fileHandler import fileHandle
 commandDictionary = {}
 
 class ImportCmds():
@@ -41,65 +42,71 @@ class InterpretCmds():
   def __init__(self, currentI): #make key for dictionary
       self.string = 'command' + str(currentI)
       self.command = commandDictionary[self.string] #input key into command dictionary
+      # print(f'{Fore.BLUE}[INFO] ⓘ  command: {self.command}{Fore.WHITE}')
       self.cmdContents = self.command.split() #split command by word, storing each as a list
 
-  def checkAgainstDicts(self):
+  def baseKWcheck(self):
     self.baseKW = self.cmdContents[0] #get basic key word, i.e. get or send
     print(f'{Fore.BLUE}[INFO] ⓘ  Base keyword: {self.baseKW}{Fore.WHITE}')
-    if self.baseKW in commandWords: 
+    if self.baseKW in commandWords: #if valid base kw
       print(f'{Fore.GREEN}[PASS] ✓ Base keyword accepted.{Fore.WHITE}')
-      self.cmdContents.pop(0)
-      Cmds(self.cmdContents, self.baseKW)
+      self.cmdContents.pop(0) #remove base kw
+      return self.cmdContents, self.baseKW
     else:
-      print(f'{Fore.RED}[FAIL] ✗ Base keyword not found. Exiting...{Fore.WHITE}')
+      print(f'{Fore.RED}[FAIL] ✗ Base keyword not found. Exiting...{Fore.WHITE}') #invalid base kw/no base kw found
       sys.exit()
 
 class Cmds():
 
-  def __init__(self, listIn, baseKW):
-    self.kwDict = {}
-    self.extraInfo = {}
+  def initial(self, listIn, baseKW):
+    self.kwDict = {} #dictionary of keywords
+    self.extraDict = {} #dictionary of extra info/context 
     for i in range(len(listIn)):
-      if listIn[i] in keywords or listIn[i] in targetData or listIn[i] in targetDataTypes or listIn[i] in linkTypes:
-        self.kwDict.update({str(listIn[i]): i})
+      if listIn[i] in keywords or listIn[i] in targetData or listIn[i] in targetDataTypes or listIn[i] in linkTypes: #if in a keyword dictionary in constantData.py,
+        self.keyIn = str(listIn[i]).replace('-', ' ') #replace - with spaces
+        print(f'{Fore.BLUE}[INFO] ⓘ  keyIn {self.keyIn}{Fore.WHITE}')
+        self.kwDict.update({self.keyIn: i}) #add to kwDict with position in entire command
       else:
-        self.extraInfo.update({str(listIn[i]): i})
-    print(f'{Fore.BLUE}[INFO] ⓘ  Keyword Dictionary: {self.kwDict}{Fore.WHITE}')
-    print(f'{Fore.BLUE}[INFO] ⓘ  Extra Information Dictionary: {self.extraInfo}{Fore.WHITE}')
-    if baseKW == 'get':
-      self.Get(self.kwDict, self.extraInfo)
+        self.keyIn = str(listIn[i]).replace('-', ' ') #replace - with spaces
+        print(f'{Fore.BLUE}[INFO] ⓘ  keyIn {self.keyIn}{Fore.WHITE}')
+        self.extraDict.update({self.keyIn: i}) #add to extraDict with position in entire command
 
-  def Get(self, kwDict, extraInfo):
-    self.trueCount = 0
+    print(f'{Fore.BLUE}[INFO] ⓘ  Keyword Dictionary: {self.kwDict}{Fore.WHITE}')
+    print(f'{Fore.BLUE}[INFO] ⓘ  Extra Information Dictionary: {self.extraDict}{Fore.WHITE}')
+    return baseKW, self.kwDict, self.extraDict #return for get function
+
+  def Get(self, kwDict, extraDict): 
+    self.trueCount = 0 #incase 1 or more data types are provided 
     self.flagSQL = False
     self.flagLink = False
     self.flagTypeLink = False
     self.flagFile = False
-    if 'database' in kwDict or 'database' in extraInfo:
+    if 'database' in kwDict or 'database' in extraDict:
       self.flagSQL = True #handling database, therefore sql command
       self.trueCount += 1
       print(f'{Fore.GREEN}[PASS] ✓ Database{Fore.WHITE}')
-    if 'link' in kwDict or 'link' in extraInfo:
+    if 'link' in kwDict or 'link' in extraDict:
       self.flagLink = True #handling data
       self.trueCount += 1
       print(f'{Fore.GREEN}[PASS] ✓ Link{Fore.WHITE}')
-    if 'file' in kwDict or 'file' in extraInfo:
+    if 'file' in kwDict or 'file' in extraDict:
       self.flagFile = True #handling file
       self.trueCount += 1
       print(f'{Fore.GREEN}[PASS] ✓ File{Fore.WHITE}')
     else:
       for link in linkTypes:
-        if link in kwDict or link in extraInfo:
-          self.flagTypeLink = True
+        if link in kwDict or link in extraDict:
+          self.flagTypeLink = True #get a specific link
           self.trueCount += 1
           self.linkType = link
           print(f'{Fore.GREEN}[PASS] ✓ link, linkType = {self.linkType}{Fore.WHITE}')
 
     print(f'{Fore.BLUE}[INFO] ⓘ  trueCount = {self.trueCount}{Fore.WHITE}')
+
     if self.trueCount == 1: #as long as only one data type has been given
       if self.flagSQL: #if database command,
-        self.exInfValues = [ *extraInfo.values() ] #list of values
-        self.exInfKeys = [ *extraInfo.keys() ] #list of keys
+        self.exInfValues = [ *extraDict.values() ] #list of values
+        self.exInfKeys = [ *extraDict.keys() ] #list of keys
         if 'all' in kwDict: #if get all
           self.select = '*' #wildcard
         else:
@@ -113,42 +120,45 @@ class Cmds():
           self.key1 = str(self.exInfKeys[self.position1])
           self.position2 = self.exInfValues.index(self.keyPos2)
           self.key2 = str(self.exInfKeys[self.position2]) #getting based on value & not key
-          print(f'{Fore.BLUE}[INFO] ⓘ  keyPos1 = {self.keyPos1}, position1 = {self.position1}, key1 = {self.key1}, keyPos2 = {self.keyPos2}, position2 = {self.position2}, key2 = {self.key2}{Fore.WHITE}')
+          print(f'{Fore.BLUE}[INFO] ⓘ  keyPos1: {self.keyPos1}, position1: {self.position1}, key1: {self.key1}, keyPos2: {self.keyPos2}, position2: {self.position2}, key2: {self.key2}{Fore.WHITE}')
           self.where = self.key1 + ' = "' + self.key2 + '"' #create part of sql command following WHERE
-          print(f'{Fore.BLUE}[INFO] ⓘ  where = {self.where}{Fore.WHITE}')
-        if 'table' in extraInfo:
-          self.tablePos = extraInfo['table'] + 1 #get table name (1 after keyword table)
+          print(f'{Fore.BLUE}[INFO] ⓘ  where: {self.where}{Fore.WHITE}')
+        if 'table' in extraDict:
+          self.tablePos = extraDict['table'] + 1 #get table name (1 after keyword table)
           self.position = self.exInfValues.index(self.tablePos)
           self.table = str(self.exInfKeys[self.position])  #get based on value not key
-          print(f'{Fore.BLUE}[INFO] ⓘ  table = {self.table}{Fore.WHITE}')
+          print(f'{Fore.BLUE}[INFO] ⓘ  table: {self.table}{Fore.WHITE}')
         self.sqlCmd = 'SELECT ' + self.select + ' FROM ' + self.table + ' WHERE ' + self.where #create full command
-        print(f'{Fore.BLUE}[INFO] ⓘ  sql command = {self.sqlCmd}{Fore.WHITE}')
-        return self.sqlCmd, 'sql'
-        #pass to database handling file later
+        print(f'{Fore.BLUE}[INFO] ⓘ  sql command: {self.sqlCmd}{Fore.WHITE}')
+        return 'get' 'sql', self.sqlCmd
+        #pass to database handler later
 
       elif self.flagFile:
-        self.exInfValues = [ *extraInfo.values() ]
-        self.exInfKeys = [ *extraInfo.keys() ]
+        self.exInfValues = [ *extraDict.values() ]
+        self.exInfKeys = [ *extraDict.keys() ]
         self.filePathValue = kwDict['file'] + 1
         self.fileNameValue = kwDict['file'] + 2
         self.position1 = self.exInfValues.index(self.filePathValue)
         self.position2 = self.exInfValues.index(self.fileNameValue)
         self.filePathKey = str(self.exInfKeys[self.position1])
         self.fileNameKey = str(self.exInfKeys[self.position2])
-        print(f'{Fore.BLUE}[INFO] ⓘ  filePathValue = {self.filePathValue}, fileNameValue = {self.fileNameValue}, position1 = {self.position1}, position2 = {self.position2}, filePathKey = {self.filePathKey}, fileNameKey = {self.fileNameKey}{Fore.WHITE}')
+        for item in extensions:
+          if item in self.fileNameKey:
+            self.extension = str(item)
+        print(f'{Fore.BLUE}[INFO] ⓘ  filePathValue = {self.filePathValue}, fileNameValue = {self.fileNameValue}, position1 = {self.position1}, position2 = {self.position2}, filePathKey = {self.filePathKey}, fileNameKey = {self.fileNameKey}, extension = {self.extension}{Fore.WHITE}')
         self.filePathFull = self.filePathKey + self.fileNameKey
         print(f'{Fore.BLUE}[INFO] ⓘ  filePathFull = {self.filePathFull}{Fore.WHITE}')
-        return self.filePathFull, 'file'
+        return 'get', 'file', self.filePathFull, self.extension
         #pass to file handler later
 
       elif self.flagTypeLink:
-        self.exInfValues = [ *extraInfo.values() ]
-        self.exInfKeys = [ *extraInfo.keys() ]
+        self.exInfValues = [ *extraDict.values() ]
+        self.exInfKeys = [ *extraDict.keys() ]
         self.linkPosition = kwDict[self.linkType] + 1
         self.position = self.exInfValues.index(self.linkPosition)
         self.link = str(self.exInfKeys[self.position])
         print(f'{Fore.BLUE}[INFO] ⓘ  linkPosition = {self.linkPosition}, position = {self.position}, link = {self.link}{Fore.WHITE}')
-        return self.link, 'link'
+        return 'get', 'link', self.link
         #pass to webscraper later
       
       elif self.flagLink:
@@ -158,7 +168,7 @@ class Cmds():
         self.position = self.kwDictValues.index(self.linkKwPos)
         self.kwLinkType = str(self.kwDictKeys[self.position])
         print(f'{Fore.BLUE}[INFO] ⓘ  linkKwPos = {self.linkKwPos}, position = {self.position}, kwLinkType = {self.kwLinkType}')
-        return self.kwLinkType, 'linkType'
+        return 'get', 'linkType', self.kwLinkType
         #pass to webscraper later
 
     elif self.trueCount < 1:
@@ -168,8 +178,6 @@ class Cmds():
     else:
       print(f'{Fore.RED}[FAIL] ✗ Too many target data types given. Exiting...{Fore.WHITE}')
       sys.exit()
-    
-
   
 take = ImportCmds()
 give = ExportCmds()
@@ -186,8 +194,14 @@ if take.passed:
     j = 0
     for command in commandDictionary:
       interpret = InterpretCmds(j)
-      interpret.checkAgainstDicts()
+      cmd = interpret.baseKWcheck()
+      d = Cmds()
+      determine = d.initial(cmd[0], cmd[1])
+      if determine[0] == 'get':
+        got = d.Get(determine[1], determine[2])
+        print(got)
       j += 1
+
   else:
     print(f'{Fore.RED}[ERROR] ! Target file (currently commands.txt) is not empty.{Fore.WHITE}') #this will be handled in future.
     take
