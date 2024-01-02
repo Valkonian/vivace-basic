@@ -80,3 +80,10 @@ Say I want to **store a file** _(already formatted)_ **called "Billie-Eilish.txt
 > - store = **command word**, _tells program what to do_
 > - in database main = **extra information**, _tells program to store in a database called main_
 > - in table artists = **extra information**, _tells program to store in a table called artists_
+
+### Error codes
+
+- **101** = _File not found_
+- **102** = _Database table not found_
+- **103** = _Target field not found_
+- **104** = _Key/given field not found_

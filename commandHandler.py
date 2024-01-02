@@ -2,9 +2,31 @@ from typing import Any
 from constantData import commandWords, keywords, targetData, targetDataTypes, commonUrls, linkTypes, extensions
 import sys
 from colorama import Fore
+import json
 # from webscraper import scrape
 # from fileHandler import fileHandle
 commandDictionary = {}
+
+class FileGet():
+    def start(self, filepath, extension):
+        self.lines = []
+        if extension == '.txt':
+            try:
+              with open(filepath) as self.file:
+                  self.read = self.file.readlines()
+                  for line in self.read:
+                      self.lines.append(line.strip())
+                  return self.lines
+            except FileNotFoundError:
+              return 101
+        elif extension == '.json':
+            try:
+              with open(filepath) as self.file:
+                  self.read = json.load(self.file)
+                  return self.read
+            except FileNotFoundError:
+              return 101
+                
 
 class ImportCmds():
   def __init__(self):
@@ -192,14 +214,16 @@ if take.passed:
       i += 1
     print(f'{Fore.BLUE}[INFO] ⓘ  Command Dictionary = {commandDictionary}')
     j = 0
-    for command in commandDictionary:
-      interpret = InterpretCmds(j)
+    for command in commandDictionary: #for every command retrieved
+      interpret = InterpretCmds(j) 
       cmd = interpret.baseKWcheck()
       d = Cmds()
-      determine = d.initial(cmd[0], cmd[1])
-      if determine[0] == 'get':
-        got = d.Get(determine[1], determine[2])
-        print(got)
+      determine = d.initial(cmd[0], cmd[1]) #get base keyword, kwdict and extra info
+      if determine[0] == 'get': #if get
+        got = d.Get(determine[1], determine[2]) #get command
+        if got[1] == 'file': #if file
+          getfile = FileGet()
+          print(f'\n{getfile.start(got[2], got[3])}')
       j += 1
 
   else:

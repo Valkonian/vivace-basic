@@ -1,1 +1,0 @@
-get file transfer/ artists.json
