@@ -51,13 +51,14 @@ Say I want to **get the link** to _Billie Eilish's stats_ **from the webpage htt
 
 Say I wanted to **get all information** **from the database main**, **the table monthlyListeners**, using the **primary key Billie-Eilish** <br>
 
-> #### get all from database main table artists with key name Billie-Eilish
+> #### get all from database main table artists with key name = Billie-Eilish
 
 > - get = **get command word**
 > - all = **target data**, _in this case all fields from table_
 > - from database main = **keyword/target data location**, _get data from the database 'main', 'database' considered keyword_
 > - table artists = **target data location (cont)**, _get data from the table artists_
-> - with key Billie-Eilish = **target data key**, _using the key_
+> - with key name = **target data key**, _using the key_
+> - = Billie-Eilish = **specifying equality/likeness**, _does the WHERE use = or LIKE_
 
 ### Send Data
 
@@ -83,7 +84,9 @@ Say I want to **store a file** _(already formatted)_ **called "Billie-Eilish.txt
 
 ### Error codes
 
-- **101** = _File not found_
-- **102** = _Database table not found_
+- **101** = _Database not found_
+- **102** = _Table not found_
 - **103** = _Target field not found_
 - **104** = _Key/given field not found_
+- **105** = _Database not specified_
+- **106** = _Table not specified_

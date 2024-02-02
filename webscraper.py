@@ -4,8 +4,6 @@ import sys
 from colorama import Fore
 from constantData import commonUrls
 
-#THIS FILE WILL CHANGE A LOT DUE TO REQUIREMENTS
-
 class Scraper():
     def soupLink(self, targetLink):
         try:
@@ -61,7 +59,7 @@ class Scraper():
             self.tableDataClean.append(self.temp) 
         return self.tableTitles, self.tableDataClean #return the titles & cleaned data
     
-    def getKworbLink(self, target):
+    def KworbSpotifyLink(self, target):
         self.allData = self.soup.find_all('table')[0] #get table data
         self.data = self.allData.find_all('td') #list of all table data
         self.dataLength = len(self.data) #length of the table data list
@@ -78,5 +76,3 @@ class Scraper():
 
     def clearFile(self):
         open("commands.txt", "w").close() #clear the file
-
-scrape = Scraper()
