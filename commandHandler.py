@@ -123,17 +123,17 @@ class Cmds():
         print(f'{Fore.LIGHTBLACK_EX}[INFO] ⓘ  select = {self.select}{Fore.WHITE}')
         if 'key' in kwDict: #if using key
           self.keyPos1 = kwDict['key'] + 1 #position of key, adding 1 to get the key category
-          self.keyPos2 = kwDict['key'] + 2 #position of key, + 2 to get if = or LIKE
+          self.keyPos2 = kwDict['key'] + 2 #position of key, + 2 to get if =, <, >, or LIKE
           self.keyPos3 = kwDict['key'] + 3 #get word 3 after keypos to get target key value
           self.position1 = self.exInfValues.index(self.keyPos1)
           self.key1 = str(self.exInfKeys[self.position1])
           self.position2 = self.exInfValues.index(self.keyPos2)
-          self.key2 = str(self.exInfKeys[self.position2]).upper() #will always be = or like, so upper() to make like become LIKE
+          self.key2 = str(self.exInfKeys[self.position2]).upper() #will always be =, <, >, or like, so upper() to make like become LIKE
           self.position3 = self.exInfValues.index(self.keyPos3)
           self.key3 = str(self.exInfKeys[self.position3]) #getting based on value & not key
           self.tempList = [self.key1, self.key2, self.key3]
           print(f'{Fore.LIGHTBLACK_EX}[INFO] ⓘ  keyPos1: {self.keyPos1}, position1: {self.position1}, key1: {self.key1} \n          keyPos2: {self.keyPos2}, position2: {self.position2}, key2: {self.key2} \n          keyPos3: {self.keyPos3}, position3: {self.position3}, key3: {self.key3}{Fore.WHITE}')
-          print(f'{Fore.LIGHTBLACK_EX}[INFO]')
+          # print(f'{Fore.LIGHTBLACK_EX}[INFO] ⓘ  ')
           self.where = ' '.join(self.tempList)  #create part of sql command following WHERE
           print(f'{Fore.LIGHTBLACK_EX}[INFO] ⓘ  where: {self.where}{Fore.WHITE}')
 

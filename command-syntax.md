@@ -1,30 +1,30 @@
 # Basic Command Syntax for Vivace
 
-There will be a **py command handler**, and a **js command handler**, for **back-end** and **front-end** respectively.<br>
-This is so that the 2 languages can _interact with eachother_ with a **standardised set of commands in a standardised format**.<br>
+There will be a **py command handler**, and a **js command handler**, for **back-end** and **front-end** respectively.  
+This is so that the 2 languages can _interact with eachother_ with a **standardised set of commands in a standardised format**.
 
 ## Data requests
 
 ### Get Data
 
-All _get_ commands will start with **"get"**.<br>
-Then, the **target data** will be entered.<br>
-Then, the **target data type** will be added, if required.<br>
-Then the **object name**, like an **artist**, **song**, or **album**, if required.<br>
-If we are searching a database, a **target data key** will be required.<br>
-Finally, the **extra information** (if applicable).<br>
-_Spaces_ in names will be replaced with a dash/hyphen .<br>
-The _order_ goes like this:<br>
+All _get_ commands will start with **"get"**.  
+Then, the **target data** will be entered.  
+Then, the **target data type** will be added, if required.  
+Then the **object name**, like an **artist**, **song**, or **album**, if required.  
+If we are searching a database, a **target data key** will be required.  
+Finally, the **extra information** (if applicable).  
+_Spaces_ in names will be replaced with a dash/hyphen .  
+The _order_ goes like this:
 
 - artist
 - album
 - song
 
-_If not_, simply the **command instructions** will follow.<br>
+_If not_, simply the **command instructions** will follow.
 
 #### e.g.
 
-Say I want to **get the kworb.net link** for _Billie Eilish_'s songs.<br>
+Say I want to **get the kworb.net link** for _Billie Eilish_'s songs.
 
 > #### get link kworb Billie-Eilish streams songs
 
@@ -34,11 +34,11 @@ Say I want to **get the kworb.net link** for _Billie Eilish_'s songs.<br>
 > - kworb = **target data type**
 > - streams, songs = **extra information**, _there are more than 1 pages for Billie Eilish's stats_
 
-This, once fully implemented, will return:<br>
+This, once fully implemented, will return:
 
 > <https://kworb.net/spotify/artist/6qqNVTkY8uBg9cP3Jd7DAH_songs.html>
 
-Say I want to **get the link** to _Billie Eilish's stats_ **from the webpage https://kworb.net/spotify/listeners.html**. <br>
+Say I want to **get the link** to _Billie Eilish's stats_ **from the webpage https://kworb.net/spotify/listeners.html**.
 
 > #### get stats for Billie-Eilish with kworblink https://kworb.net/spotify/listeners.html
 
@@ -49,7 +49,7 @@ Say I want to **get the link** to _Billie Eilish's stats_ **from the webpage htt
 > - kworblink = **data resource type** , _tells program what type the following data resource is_
 > - \[kworb link] = **data resource**, _gives program the data to use_
 
-Say I wanted to **get all information** **from the database main**, **the table monthlyListeners**, using the **primary key Billie-Eilish** <br>
+Say I wanted to **get all information** **from the database main**, **the table monthlyListeners**, using the **primary key Billie-Eilish**
 
 > #### get all from database main table artists with key name = Billie-Eilish
 
@@ -58,19 +58,19 @@ Say I wanted to **get all information** **from the database main**, **the table 
 > - from database main = **keyword/target data location**, _get data from the database 'main', 'database' considered keyword_
 > - table artists = **target data location (cont)**, _get data from the table artists_
 > - with key name = **target data key**, _using the key_
-> - = Billie-Eilish = **specifying equality/likeness**, _does the WHERE use = or LIKE_
+> - = Billie-Eilish = **specifying equality/likeness**, _does the WHERE use =, \<, \>, or LIKE_
 
 ### Send Data
 
-All _send_ commands will start with **"send"**.<br>
-If applicable, a **file location** will be sent, and then a **file name**. This will _always_ be _preceded_ by the keyword **file**.<br>
-If not, a piece of data, be it a _string_, an _integer_, etc, will be entered, _after_ the keyword **data**.<br>
-A **command word** will then follow. For instance, if I wanted to _store something in a database_, the command word would be **store**.<br>
-If required, **more context** will be added to the **command word**. For instance, if I wanted to _store something in a database named artists_, the command word & context would be **store in database artists**.<br>
+All _send_ commands will start with **"send"**.  
+If applicable, a **file location** will be sent, and then a **file name**. This will _always_ be _preceded_ by the keyword **file**.  
+If not, a piece of data, be it a _string_, an _integer_, etc, will be entered, _after_ the keyword **data**.  
+A **command word** will then follow. For instance, if I wanted to _store something in a database_, the command word would be **store**.  
+If required, **more context** will be added to the **command word**. For instance, if I wanted to _store something in a database named artists_, the command word & context would be **store in database artists**.
 
 #### e.g.
 
-Say I want to **store a file** _(already formatted)_ **called "Billie-Eilish.txt"** in a **database called main**, in a **table called artists** located in a **subfolder called transfer**.<br>
+Say I want to **store a file** _(already formatted)_ **called "Billie-Eilish.txt"** in a **database called main**, in a **table called artists** located in a **subfolder called transfer**.
 
 > #### send file transfer/ Billie-Eilish.txt store in database main table artists
 
