@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="dashboardstyles.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <img class="logo" src="images/logo.png" alt="logo" />
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#">About</a></li>
+        </ul>
+      </nav>
+      <div class="dropdown">
+        <a class="cta" href="settings.html"
+          ><button class="settings-btn">Settings</button></a
+        >
+        <div class="dropdown-content">
+          <a href="#">Profile</a>
+          <a href="#">Boards</a>
+          <a href="#">Appearance</a>
+        </div>
+      </div>
+    </header>
+    <div class="wrapper">
+      <div class="dashboard">
+        <h1>Dashboard</h1>
+        <p>Here are your most recent schedules:</p>
+        <ul class="schedule-links">
+          <li><button type="button" class="most-recent">most-recent</button>
+          <li><button type="button" class="2nd-recent">2nd-recent</button>
+          <li><button type="button" class="3rd-recent">3rd-recent</button>
+        </ul>
+        <p>Here is your general calendar:</p>
+        <button type="button" class="general-calendar">calendar</button>
+        <p>Find all your boards here:</p>
+        <button type="button" class="all-boards">all boards</button>
+        <hr>
+        <h3>Create New:</h3>
+        <div class="input-box">
+          <input type="text" placeholder="Schedule Name" required>
+        </div>
+        <button type="submit" class="submit-btn">Submit</button type="submit">
+      </div>
+    </div>
+  </body>
+</html>

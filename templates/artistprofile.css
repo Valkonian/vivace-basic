@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    font-family: 'Work Sans';
+}
+
+header {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+#navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+#navbar li {
+    float: left;
+}
+
+#navbar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+#navbar li a:hover {
+    background-color: #111;
+    transition: all 0.3s ease 0s
+}
+
+#pagesummary {
+    color: white;
+    margin-top: 55px;
+    width: 9%;
+    border: 2px solid black;
+    background-color: #777;
+    padding: 0px 10px;
+}
+
+#pagelinks {
+    margin-top: 10px;
+    width: 9%;
+    border: 2px solid black;
+    background-color: #777;
+    display: flex;
+    flex-direction: column;
+    padding: 5px 10px;
+}
+
+#pagesummary a, #pagelinks a {
+    color: white;
+    text-decoration: none;
+    padding: 5px;
+}
+
+#pagesummary a:hover, #pagelinks a:hover {
+    color: #bebebe;
+    transition: all 0.3s ease 0s
+}
+
+#top {
+    display: flex;
+    flex-direction: row;
+    margin-top: 7vh;
+    height: 12vh;
+    width: 100vw;
+    border: 2px solid black;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#pfp {
+    border-radius: 50%;
+    height: 10vh;
+    margin-left: 1vh;
+}
+
+#artistname {
+    border: 1px solid black;
+    margin-left: 1vh;
+    width: 70vw;
+}
+
+#follow {
+    height: 10vh;
+}
