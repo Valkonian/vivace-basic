@@ -12,9 +12,7 @@ header {
 }
 
 body {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
+    display: block;
 }
 
 #navbar {
@@ -42,50 +40,20 @@ body {
     transition: all 0.3s ease 0s
 }
 
-#pagesummary {
-    color: white;
-    margin-top: 55px;
-    width: 9%;
-    border: 2px solid black;
-    background-color: #777;
-    padding: 0px 10px;
-}
-
-#pagelinks {
-    margin-top: 10px;
-    width: 9%;
-    border: 2px solid black;
-    background-color: #777;
-    display: flex;
-    flex-direction: column;
-    padding: 5px 10px;
-}
-
-#pagesummary a, #pagelinks a {
-    color: white;
-    text-decoration: none;
-    padding: 5px;
-}
-
-#pagesummary a:hover, #pagelinks a:hover {
-    color: #bebebe;
-    transition: all 0.3s ease 0s
-}
-
 #top {
+    margin-top: 55px;
     display: flex;
     flex-direction: row;
-    margin-top: 7vh;
-    height: 12vh;
-    width: 100vw;
+    height: 90px;
+    width: 100%;
     border: 2px solid black;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 
 #pfp {
     border-radius: 50%;
-    height: 10vh;
+    height: 70px;
     margin-left: 1vh;
 }
 
@@ -96,5 +64,24 @@ body {
 }
 
 #follow {
-    height: 10vh;
+    height: 70px;
+}
+
+#middle {
+    display: flex;
+    flex-direction: row;
+    border: 2px solid black
+}
+
+#left {
+    border: 2px solid blue;
+    width: 200px;
+}
+
+#right {
+    border: 2px solid red;
+}
+
+#about {
+    border: 2px solid green;
 }
