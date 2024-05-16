@@ -1,5 +1,5 @@
 commandWords = ['get', 'send']
-keywords = ['file', 'link', 'database', 'from', 'with']
+keywords = ['file', 'link', 'database', 'table', 'from', 'with', 'store']
 targetData = ['stats', 'all', 'one']
 targetDataTypes = ['vivace', 'kworb', 'key', 'keys']
 dupeWords = ['and', 'or']

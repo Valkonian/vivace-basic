@@ -202,6 +202,9 @@ class Cmds():
     else:
       print(f'{Fore.LIGHTRED_EX}[FAIL] ✗ Too many target data types given. Exiting...{Fore.WHITE}')
       sys.exit()
+
+  def Send(self, kwDict, extraDict, dupes): 
+    return kwDict, extraDict, dupes
   
 take = ImportCmds()
 give = ExportCmds()
@@ -226,6 +229,8 @@ if take.passed:
         if got[1] == 'file': #if file
           getfile = FileGet()
           print(f'\n{getfile.start(got[2], got[3])}')
+      elif determine[0] == 'send':
+        print(d.Send(determine[1], determine[2], determine[3]))
       j += 1
 
   else:

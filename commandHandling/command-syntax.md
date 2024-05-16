@@ -72,12 +72,12 @@ If required, **more context** will be added to the **command word**. For instanc
 
 Say I want to **store a file** _(already formatted)_ **called "Billie-Eilish.txt"** in a **database called main**, in a **table called artists** located in a **subfolder called transfer**.
 
-> #### send file transfer/ Billie-Eilish.txt store in database main table artists
+> #### send file static/ artists.json store in database main table artists
 
 > - send = **send command word**
 > - file = **keyword**, _tells program it's a file and not a piece of data_
-> - transfer/ = **file location**, _tells program that the target file is in a subfolder with the path transfer/_
-> - Billie-Eilish.txt = **file name**
+> - static/ = **file location**, _tells program that the target file is in a subfolder with the path transfer/_
+> - artists.json = **file name**
 > - store = **command word**, _tells program what to do_
 > - in database main = **extra information**, _tells program to store in a database called main_
 > - in table artists = **extra information**, _tells program to store in a table called artists_
