@@ -13,6 +13,7 @@ header {
 
 body {
     display: block;
+    background-color: #555;
 }
 
 #navbar {
@@ -49,39 +50,70 @@ body {
     border: 2px solid black;
     align-items: center;
     justify-content: space-between;
+    background-color: #fff;
 }
 
 #pfp {
     border-radius: 50%;
     height: 70px;
-    margin-left: 1vh;
+    margin-left: 1vw;
 }
 
 #artistname {
-    border: 1px solid black;
-    margin-left: 1vh;
+    margin-left: 1vw;
     width: 70vw;
+    cursor: default;
 }
 
 #follow {
     height: 70px;
+    margin-right: 1vw;
+    cursor: pointer;
 }
 
 #middle {
     display: flex;
     flex-direction: row;
-    border: 2px solid black
+    justify-content: space-between;
+    border: 2px solid black;
+    margin-top: 5px;
+    height: 75vh;
+    width: 100%;
+    background-color: #fff;
 }
 
 #left {
-    border: 2px solid blue;
-    width: 200px;
+    border-right: 2px solid blue;
+    width: 15%;
+    overflow: scroll;
+    cursor: default;
+}
+
+#left li:hover {
+    color: #777;
+    transition: all 0.3 ease 0;
+    cursor: pointer;
 }
 
 #right {
-    border: 2px solid red;
+    width: 15%;
+    padding: 15px;
+    overflow: scroll;
+}
+
+#photoImage {
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+}
+
+#altUnder {
+    font-weight: bold;
 }
 
 #about {
-    border: 2px solid green;
+    border-right: 2px solid green;
+    width: 70%;
+    padding: 15px;
+    overflow: scroll;
 }
