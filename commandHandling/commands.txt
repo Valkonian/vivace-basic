@@ -1,1 +1,0 @@
-send file static/ artists.json store in database main table artists

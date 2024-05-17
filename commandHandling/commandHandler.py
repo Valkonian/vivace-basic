@@ -127,8 +127,7 @@ class Cmds():
           self.keyPos3 = kwDict['key'] + 3 #get word 3 after keypos to get target key value
           self.position1 = self.exInfValues.index(self.keyPos1)
           self.key1 = str(self.exInfKeys[self.position1])
-          self.position2 = self.exInfValues.index(self.keyPos2)
-          self.key2 = str(self.exInfKeys[self.position2]).upper() #will always be =, <, >, or like, so upper() to make like become LIKE
+          
           self.position3 = self.exInfValues.index(self.keyPos3)
           self.key3 = str(self.exInfKeys[self.position3]) #getting based on value & not key
           self.tempList = [self.key1, self.key2, self.key3]
@@ -137,14 +136,34 @@ class Cmds():
           self.where = ' '.join(self.tempList)  #create part of sql command following WHERE
           print(f'{Fore.LIGHTBLACK_EX}[INFO] ⓘ  where: {self.where}{Fore.WHITE}')
 
-        # if 'keys' in kwDict:
-        #   self.keysPos = kwDict['keys']
-        #   self.andTimes = dupes['and']
-        #   self.allArguments = []
+        if 'keys' in kwDict:
+          self.keysPos = kwDict['keys']
+          self.andTimes = dupes['and']
+          self.allArguments = []
+          for j in range(self.andTimes):
+            self.keyPos1 = (kwDict['keys'] *self.andTimes) + 1 #position of key, adding 1 to get the key category
+            print(self.keyPos1)
+            self.keyPos2 = (kwDict['keys'] *self.andTimes) + 2 #position of key, + 2 to get if =, <, >, or LIKE
+            print(self.keyPos2)
+            self.keyPos3 = (kwDict['keys'] *self.andTimes) + 3 #get word 3 after keypos to get target key value
+            print(self.keyPos3)
+            self.position1 = self.exInfValues.index(self.keyPos1)
+            self.key1 = str(self.exInfKeys[self.position1])
+            self.position2 = self.exInfValues.index(self.keyPos2)
+            self.key2 = str(self.exInfKeys[self.position2]).upper() #will always be =, <, >, or like, so upper() to make like become LIKE
+            self.position3 = self.exInfValues.index(self.keyPos3)
+            self.key3 = str(self.exInfKeys[self.position3]) #getting based on value & not key
+            self.tempList = [self.key1, self.key2, self.key3]
+            print(self.tempList)
+            self.allArguments.append(self.tempList)
+            print(self.allArguments)
+          for k in range(len(self.allArguments)):
+            self.whereBroken = ' '.join(self.allArguments[k]) #each separate where clause
+          self.where = self.where = ' '.join(self.allArguments)
           
 
-        if 'table' in extraDict:
-          self.tablePos = extraDict['table'] + 1 #get table name (1 after keyword table)
+        if 'table' in kwDict:
+          self.tablePos = kwDict['table'] + 1 #get table name (1 after keyword table)
           self.position = self.exInfValues.index(self.tablePos)
           self.table = str(self.exInfKeys[self.position])  #get based on value not key
           print(f'{Fore.LIGHTBLACK_EX}[INFO] ⓘ  table: {self.table}{Fore.WHITE}')
@@ -204,8 +223,9 @@ class Cmds():
       sys.exit()
 
   def Send(self, kwDict, extraDict, dupes): 
-    return kwDict, extraDict, dupes
-  
+    #for database 'mainDB', table 'Users', userinfo.txt  ->  return mainDB.py, INSERT INTO users (username, password, email) VALUES ('jonnyP', 'AEGJWIVDSIJOWEHUGJKVNDSLJ', 'jonP@musicman.com')
+    pass 
+
 take = ImportCmds()
 give = ExportCmds()
 
@@ -226,16 +246,23 @@ if take.passed:
       determine = d.initial(cmd[0], cmd[1]) #get base keyword, kwdict and extra info
       if determine[0] == 'get': #if get
         got = d.Get(determine[1], determine[2], determine[3]) #get command
-        if got[1] == 'file': #if file
-          getfile = FileGet()
-          print(f'\n{getfile.start(got[2], got[3])}')
+        if type(got) is not int:
+          if got[1] == 'file': #if file
+            getfile = FileGet()
+            print(f'\n{getfile.start(got[2], got[3])}')
+        else:
+            print(got)
       elif determine[0] == 'send':
         print(d.Send(determine[1], determine[2], determine[3]))
       j += 1
 
   else:
     print(f'{Fore.LIGHTRED_EX}[ERROR] ! Target file (currently commands.txt) is not empty.{Fore.WHITE}') #this will be handled in future.
-    take
+    #take
 else:
   print(f'{Fore.LIGHTRED_EX}[ERROR] ! Target file (currently commands.txt) is empty. Exiting...{Fore.WHITE}')
   sys.exit()
+
+# tester cmd: get all from database main table artists with key name like B%
+# tester cmd: get all from database main table artists with key name = Billie-Eilish and age = 22
+# tester cmd: send file static/ userinfo.txt store in database mainDB table users

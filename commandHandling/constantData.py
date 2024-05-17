@@ -2,7 +2,7 @@ commandWords = ['get', 'send']
 keywords = ['file', 'link', 'database', 'table', 'from', 'with', 'store']
 targetData = ['stats', 'all', 'one']
 targetDataTypes = ['vivace', 'kworb', 'key', 'keys']
-dupeWords = ['and', 'or']
+dupeWords = ['and', 'or', '=', 'like']
 linkTypes = ['kworblink', 'vivacelink']
 extensions = ['.json', '.txt']
 commonUrls = {'kworbListeners': 'https://kworb.net/spotify/listeners.html', 'billboardHot100': 'https://www.billboard.com/charts/hot-100/'}
