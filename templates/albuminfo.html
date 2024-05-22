@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>album information</title>
+    <link rel="stylesheet" href="albuminfo.css" />
+    <script src="scripts/albuminfo.js"></script>
+  </head>
+  <body>
+    <header>
+      <ul id="navbar">
+        <li style="font-weight: bold; padding: 0px 15px">
+          <a href="#vivace">Vivace</a>
+        </li>
+        <li><a href="#dashboard">Dashboard</a></li>
+        <li><a href="#artists">Artists</a></li>
+        <li><a href="#genres">Genres</a></li>
+        <li style="float: right">
+          <a href="#profile">Profile</a>
+        </li>
+      </ul>
+    </header>
+    <div id="middle">
+      <div id="left">
+        <div id="top">
+          <div id="names">
+            <h1 id="albumname">ALBUM NAME</h1>
+            <h2 id="artistname">ARTIST NAME</h2>
+          </div>
+          <img
+            id="follow"
+            src="images/starWhite.svg"
+            alt="follow"
+            onmouseover="hover(this);"
+            onmouseout="unhover(this);"
+            onclick="change(this);"
+          />
+        </div>
+        <div id="about">ABOUT THE ALBUM GOES HERE YAPPA YAPPA YAPPA</div>
+        <div id="bottombit">
+          <div id="tracklist">
+            <ol>
+              <li>TRACK 1</li>
+              <li>TRACK 2</li>
+              <li>TRACK 3</li>
+              <li>TRACK 4</li>
+              <li>TRACK 5</li>
+              <li>TRACK 6</li>
+              <li>TRACK 7</li>
+              <li>TRACK 8</li>
+              <li>TRACK 9</li>
+              <li>TRACK 10</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div id="right">
+        <div id="photo">
+          <img id="photoImage" src="images/placeholder.png" />
+          <p id="altUnder">caption goes here</p>
+        </div>
+        <div id="basicstats">basicstats</div>
+      </div>
+    </div>
+  </body>
+</html>
